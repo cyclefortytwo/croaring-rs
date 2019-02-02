@@ -7,13 +7,13 @@ use std::path::PathBuf;
 fn main() {
     cc::Build::new()
         .flag_if_supported("-std=c11")
-        .flag_if_supported("-march=native")
+        // .flag_if_supported("-march=native")
         .flag_if_supported("-O3")
         .file("CRoaring/roaring.c")
         .compile("libroaring.a");
 
     let bindings = bindgen::Builder::default()
-        .blacklist_type("max_align_t")
+        .hide_type("max_align_t")
         .header("CRoaring/roaring.h")
         .generate_inline_functions(true)
         .generate()
